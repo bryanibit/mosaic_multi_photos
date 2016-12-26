@@ -1,4 +1,6 @@
 #include <iostream>
+#include <io.h>
+#include <string>
 #include<vector>
 #include <math.h>
 #include <opencv2\highgui\highgui.hpp>
@@ -8,8 +10,89 @@
 #include "opencv2/nonfree/nonfree.hpp"
 using namespace std;
 using namespace cv;
+#define SURFMETHOD 0
+#define DisPlay 0
 Mat_<double> translation;
 vector<Mat_<double>> vec_translation;
+// 子函数
+void from_homogeneous(const std::vector< cv::Point3f >& homogeneous, std::vector< cv::Point2f >& non_homogeneous);
+std::vector<cv::Point2f> transform_via_homography(const std::vector<cv::Point2f>& points, const cv::Matx33f& homography);
+cv::Rect_<float> bounding_box(const std::vector<cv::Point2f>& p);
+void homography_warp(const cv::Mat& src, const cv::Mat& H, cv::Mat& dst);
+void findKeypoint(Mat image_main, Mat image_, Mat & H);
+void addImage(Mat & image, Mat & container, int side_cols, int side_rows);
+//end
+int main()
+{
+	//遍历文件夹参数
+	char fileName[50];
+	string fileFolderPath = "..\\images";
+	string fileExtension = "JPG";
+	string fileFolder = fileFolderPath + "\\*." + fileExtension;
+	struct _finddata_t fileInfo;    // 文件信息结构体
+	//end
+	int side_cols = 300;
+	int side_rows = 300;
+	double num1 = 0, num2 = 0, count = 0;
+	Mat image1 = imread("..//first Image//DSC00237.JPG", 1);
+	resize(image1, image1, Size(0, 0), 0.1, 0.1);
+	Mat H;
+	Mat result_tmp;
+	image1.copyTo(result_tmp);
+	//The first image is mosaic in the result
+	cv::Mat result(1500, 1500, image1.type(), Scalar(0, 0, 0));
+	cv::Mat half(result, cv::Rect(side_cols, side_rows, image1.cols, image1.rows));//确定第一张图的位置，这个必
+	image1.copyTo(half);                                                          //须与计算H矩阵时使用的第一张图一致
+	//End 
+	long findResult = _findfirst(fileFolder.c_str(), &fileInfo);
+	if (findResult == -1)
+	{
+		_findclose(findResult);
+		return -1;
+	}
+	do
+	{
+		sprintf(fileName, "%s\\%s", fileFolderPath.c_str(), fileInfo.name);
+		if (fileInfo.attrib == _A_ARCH)
+		{
+			Mat image_pce = imread(fileName, 1);
+			resize(image_pce, image_pce, Size(0, 0), 0.1, 0.1);
+			findKeypoint(result_tmp, image_pce, H);
+			homography_warp(image_pce, H, result_tmp);
+			//imshow(fileName, result_tmp);
+#if DisPlay
+			imshow("result_tmp", result_tmp);
+			waitKey(0);
+#endif
+			for (vector<Mat_<double>>::const_iterator iter = vec_translation.begin(); iter != vec_translation.end(); ++iter)
+			{
+				Mat_<double> a = *iter;
+				num1 += a.at<double>(0, 2);
+				num2 += a.at<double>(1, 2);
+				++count;
+			}
+			if (side_cols - num1 < 0 || side_rows - num2 < 0)
+			{
+				cout << "Error:side_rows and cols may be too small" << endl;
+				return -2;
+			}
+			cout << "count is " << count << endl;
+			cout << "\n\r" << endl;
+			addImage(result_tmp, result, side_cols - num1, side_rows - num2);
+			num1 = 0;
+			num2 = 0;
+			count = 0;
+		}
+	} while (!_findnext(findResult, &fileInfo));
+	imwrite("..//result.jpg", result);
+#if DisPlay
+	imshow("result image", result);
+	waitKey(0);
+#endif
+	_findclose(findResult);
+	return 0;
+}
+
 void to_homogeneous(const std::vector< cv::Point2f >& non_homogeneous, std::vector< cv::Point3f >& homogeneous)
 {
 	homogeneous.resize(non_homogeneous.size());
@@ -88,9 +171,14 @@ void findKeypoint(Mat image_main, Mat image_, Mat & H)
 	cvtColor(image_, gray_image2, CV_RGB2GRAY);
 
 	//-- Step 1: Detect the keypoints using SURF Detector
+#if SURFMETHOD
 	int minHessian = 400;
-
 	SurfFeatureDetector detector(minHessian);
+	cout << "using SURF method" << endl;
+#else
+	SiftFeatureDetector detector;
+	cout << "using SIFT method" << endl;
+#endif
 
 	std::vector< KeyPoint > keypoints_object, keypoints_scene;
 
@@ -98,12 +186,20 @@ void findKeypoint(Mat image_main, Mat image_, Mat & H)
 	detector.detect(gray_image1, keypoints_scene);
 
 	//-- Step 2: Calculate descriptors (feature vectors)
+#if SURFMETHOD
 	SurfDescriptorExtractor extractor;
-
+#else
+	SiftDescriptorExtractor extractor;
+#endif
 	Mat descriptors_object, descriptors_scene;
 
 	extractor.compute(gray_image2, keypoints_object, descriptors_object);
 	extractor.compute(gray_image1, keypoints_scene, descriptors_scene);
+	if ((descriptors_object.type() != CV_32F) || (descriptors_object.type()!=CV_32F))
+	{
+		cout << "descriptors type are not right, I think" << endl;
+		return;
+	}
 
 	//-- Step 3: Matching descriptor vectors using FLANN matcher
 	FlannBasedMatcher matcher;
@@ -155,9 +251,6 @@ void addImage(Mat & image, Mat & container, int side_cols, int side_rows)
 	Mat greyImage, greyContainer;
 	Mat thresholdImage, thresholdContainer, intersect, mask, maskImage;
 	cvtColor(image, greyImage, CV_RGB2GRAY);
-	/*imshow("image", greyImage);
-	imwrite("greyImage.jpg", greyImage);
-	waitKey(0);*/
 	cvtColor(container_roi, greyContainer, CV_RGB2GRAY);
 	threshold(greyImage, thresholdImage, 10, 255, THRESH_BINARY);
 	threshold(greyContainer, thresholdContainer, 10, 255, THRESH_BINARY);
@@ -165,62 +258,6 @@ void addImage(Mat & image, Mat & container, int side_cols, int side_rows)
 	subtract(thresholdImage, intersect, mask);
 	Mat kernel(3, 3, CV_8UC1);
 	dilate(mask, mask, kernel);
-	/*imshow("kernel", kernel);
-	waitKey(0);*/
 	bitwise_and(image, image, maskImage, mask);
 	add(container_roi, maskImage, container_roi);
-	/*imshow("container", container);
-	imwrite("container_roi.jpg", container_roi);
-	waitKey(0);*/
-}
-int main()
-{
-	int side_cols = 300;
-	int side_rows = 300;
-	double num1 = 0, num2 = 0, count = 0;
-	Mat image1 = imread("images//DSC00237.JPG", 1);
-	Mat image2 = imread("images//DSC00247.JPG", 1);
-	Mat image3 = imread("images//DSC00275.JPG", 1);
-	Mat image4 = imread("images//DSC00276.JPG", 1);
-	resize(image1, image1, Size(0, 0), 0.1, 0.1);
-	resize(image2, image2, Size(0, 0), 0.1, 0.1);
-	resize(image3, image3, Size(0, 0), 0.1, 0.1);
-	resize(image4, image4, Size(0, 0), 0.1, 0.1);
-	Mat H, M;
-	Mat result_tmp, result3, result4;
-	image1.copyTo(result_tmp);
-	imshow("result_tmp", result_tmp);
-	waitKey(0);
-	//The first image is mosaic in the result
-	cv::Mat result(1500, 1500, image1.type(), Scalar(0, 0, 0));
-	cv::Mat half(result, cv::Rect(side_cols, side_rows, image1.cols, image1.rows));//确定第一张图的位置，这个必
-	image1.copyTo(half);                                                          //须与计算H矩阵时使用的第一张图一致
-	imshow("result image1", result);
-	waitKey(2);
-	//End 
-	for (int i = 1; i <= 1; i++)
-	{
-		findKeypoint(result_tmp, image2, H);
-		homography_warp(image2, H, result_tmp);
-		for (vector<Mat_<double>>::const_iterator iter = vec_translation.begin(); iter != vec_translation.end(); ++iter)
-		{
-			Mat_<double> a = *iter;
-			num1 += a.at<double>(0, 2);
-			num2 += a.at<double>(1, 2);
-			++count;
-		}
-		if (side_cols - num1 < 0 || side_rows - num2 < 0)
-		{
-			cout << "Error:side_rows and cols may be too small" << endl;
-			return -1;
-		}
-		cout << "count is " << count << endl;
-		addImage(result_tmp, result, side_cols - num1, side_rows - num2);
-		imshow("test result is ", result);
-		waitKey(0);
-		num1 = 0;
-		num2 = 0;
-		count = 0;
-	}
-	return 0;
 }

@@ -1,18 +1,20 @@
-﻿生成启动时间为 2016/12/26 15:14:42。
-     1>项目“c:\Users\Bryan\documents\visual studio 2013\Projects\mosaic_multi_photos\mosaic_multi_photos\mosaic_multi_photos.vcxproj”在节点 2 上(Build 个目标)。
+﻿生成启动时间为 2016/12/26 19:37:10。
+     1>项目“C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\mosaic_multi_photos\mosaic_multi_photos.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
-     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(66): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
-     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(67): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
-     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(68): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
-     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(139): warning C4018: “<”: 有符号/无符号不匹配
-     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(218): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(55): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : 参见“sprintf”的声明
+     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(81): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(149): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
+     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(150): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
+     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(151): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
+     1>c:\users\bryan\documents\visual studio 2013\projects\mosaic_multi_photos\mosaic_multi_photos\main.cpp(235): warning C4018: “<”: 有符号/无符号不匹配
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"c:\users\bryan\documents\visual studio 2013\Projects\mosaic_multi_photos\Debug\mosaic_multi_photos.exe" /INCREMENTAL /NOLOGO opencv_ml2413d.lib opencv_calib3d2413d.lib opencv_contrib2413d.lib opencv_core2413d.lib opencv_features2d2413d.lib opencv_flann2413d.lib opencv_gpu2413d.lib opencv_highgui2413d.lib opencv_imgproc2413d.lib opencv_legacy2413d.lib opencv_objdetect2413d.lib opencv_ts2413d.lib opencv_video2413d.lib opencv_nonfree2413d.lib opencv_ocl2413d.lib opencv_photo2413d.lib opencv_stitching2413d.lib opencv_superres2413d.lib opencv_videostab2413d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"c:\users\bryan\documents\visual studio 2013\Projects\mosaic_multi_photos\Debug\mosaic_multi_photos.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"c:\users\bryan\documents\visual studio 2013\Projects\mosaic_multi_photos\Debug\mosaic_multi_photos.lib" /MACHINE:X86 Debug\main.obj
-         mosaic_multi_photos.vcxproj -> c:\users\bryan\documents\visual studio 2013\Projects\mosaic_multi_photos\Debug\mosaic_multi_photos.exe
-     1>已完成生成项目“c:\Users\Bryan\documents\visual studio 2013\Projects\mosaic_multi_photos\mosaic_multi_photos\mosaic_multi_photos.vcxproj”(Build 个目标)的操作。
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\Debug\mosaic_multi_photos.exe" /INCREMENTAL /NOLOGO opencv_ml2413d.lib opencv_calib3d2413d.lib opencv_contrib2413d.lib opencv_core2413d.lib opencv_features2d2413d.lib opencv_flann2413d.lib opencv_gpu2413d.lib opencv_highgui2413d.lib opencv_imgproc2413d.lib opencv_legacy2413d.lib opencv_objdetect2413d.lib opencv_ts2413d.lib opencv_video2413d.lib opencv_nonfree2413d.lib opencv_ocl2413d.lib opencv_photo2413d.lib opencv_stitching2413d.lib opencv_superres2413d.lib opencv_videostab2413d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\Debug\mosaic_multi_photos.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\Debug\mosaic_multi_photos.lib" /MACHINE:X86 Debug\main.obj
+         mosaic_multi_photos.vcxproj -> C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\Debug\mosaic_multi_photos.exe
+     1>已完成生成项目“C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\mosaic_multi_photos\mosaic_multi_photos.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:02.40
+已用时间 00:00:01.32
