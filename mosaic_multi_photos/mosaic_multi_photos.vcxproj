@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C340E8ED-32EE-4BCD-A3D5-C5EAE88CA089}</ProjectGuid>
+    <ProjectGuid>{ADF388A6-A571-4DEE-BA13-124D9397A3E8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>mosaic_multi_photos</RootNamespace>
   </PropertyGroup>
@@ -34,11 +34,11 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\module_opencv\module_opencv\PropertySheet_debug.props" />
+    <Import Project="..\..\Module_OpenCV\Module_OpenCV\Debug-opencv.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\module_opencv\module_opencv\PropertySheet_release.props" />
+    <Import Project="..\..\Module_OpenCV\Module_OpenCV\Release-opencv.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
