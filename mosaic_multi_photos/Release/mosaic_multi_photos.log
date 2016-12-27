@@ -1,0 +1,23 @@
+﻿生成启动时间为 2016/12/27 16:45:20。
+     1>项目“C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\mosaic_multi_photos\mosaic_multi_photos.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp mosaic.cpp
+         main.cpp
+     1>main.cpp(46): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356) : 参见“sprintf”的声明
+     1>main.cpp(72): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+         mosaic.cpp
+     1>mosaic.cpp(68): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
+     1>mosaic.cpp(69): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
+     1>mosaic.cpp(70): warning C4244: “参数”: 从“const int”转换到“float”，可能丢失数据
+     1>mosaic.cpp(154): warning C4018: “<”: 有符号/无符号不匹配
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\Release\mosaic_multi_photos.exe" /INCREMENTAL:NO /NOLOGO opencv_ml2413.lib opencv_calib3d2413.lib opencv_contrib2413.lib opencv_core2413.lib opencv_features2d2413.lib opencv_flann2413.lib opencv_gpu2413.lib opencv_highgui2413.lib opencv_imgproc2413.lib opencv_legacy2413.lib opencv_objdetect2413.lib opencv_ts2413.lib opencv_video2413.lib opencv_nonfree2413.lib opencv_ocl2413d.lib opencv_photo2413.lib opencv_stitching2413.lib opencv_superres2413.lib opencv_videostab2413.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\Release\mosaic_multi_photos.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\Release\mosaic_multi_photos.lib" /MACHINE:X86 /SAFESEH Release\main.obj
+         Release\mosaic.obj
+     1>mosaic.obj : error LNK2001: 无法解析的外部符号 "private: class cv::Rect_<float> __thiscall mosaic::bounding_box(class std::vector<class cv::Point_<float>,class std::allocator<class cv::Point_<float> > > const &)" (?bounding_box@mosaic@@AAE?AV?$Rect_@M@cv@@ABV?$vector@V?$Point_@M@cv@@V?$allocator@V?$Point_@M@cv@@@std@@@std@@@Z)
+     1>C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\Release\mosaic_multi_photos.exe : fatal error LNK1120: 1 个无法解析的外部命令
+     1>已完成生成项目“C:\Users\Bryan\Documents\Visual Studio 2013\Projects\mosaic_multi_photos\mosaic_multi_photos\mosaic_multi_photos.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:03.67
